@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Reddit Search Extension",
+  "description": "Test",
+  "version": "1.0.0",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {}
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "omnibox"
+  ],
+  "omnibox": {
+    "keyword": "-r"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*",
+        "<all_urls>"
+      ],
+      "js": [
+        "contentScript.js"
+      ]
+    }
+  ]
+}

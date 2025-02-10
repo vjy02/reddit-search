@@ -26,7 +26,16 @@
       ],
       "js": [
         "contentScript.js"
+      ],
+      "css": [
+        "style.css"
       ]
     }
+  ],
+  "web_accessible_resources": [
+  {
+    "resources": ["redditLogo.svg"],
+    "matches": ["<all_urls>"]
+  }
   ]
 }

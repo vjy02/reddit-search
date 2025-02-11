@@ -11,10 +11,13 @@
     "default_icon": {
     }
   },
+  "host_permissions": ["https://www.google.com/*", "https://www.reddit.com/*"],
   "permissions": [
     "storage",
     "tabs",
-    "omnibox"
+    "omnibox",
+    "scripting",
+    "activeTab"
   ],
   "omnibox": {
     "keyword": "-r"

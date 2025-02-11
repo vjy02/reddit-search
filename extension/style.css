@@ -1,4 +1,4 @@
-.reddit-btn {
+#reddit-btn {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
     border: 2px solid #FF5700;
     background-color: transparent;
@@ -19,11 +19,11 @@
     margin-bottom: 30px;
 }
 
-.reddit-btn:hover {
+#reddit-btn:hover {
     cursor: pointer;
 }
 
-.reddit-btn:active {
+#reddit-btn:active {
     background-color: rgba(255, 87, 0, 0.1); 
     border-color: #FF4500; 
 }

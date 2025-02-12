@@ -25,7 +25,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     const paragraph = document.createElement('div');
     paragraph.innerHTML = message.data; 
-    paragraph.style.marginBottom = "1.5rem";
+    paragraph.style.marginBottom = "3rem";
     redditBtn.after(paragraph);
 
     sendResponse({ status: "received" });
@@ -58,17 +58,19 @@ function createSummaryButton() {
 }
 
 function extractGoogleResults() {
-    const results = [];
-    document.querySelectorAll('h3').forEach((el, index) => {
-        if (index < NUM_REDDIT_THREADS) {
-            const parent = el.closest('a');
-            if (parent) {
-                results.push({
-                    title: el.innerText,
-                    url: parent.href
-                });
-            }
-        }
-    });
-    chrome.runtime.sendMessage({ type: "google_results", data: results });
+  const results = [];
+  const searchQuery = new URLSearchParams(window.location.search).get('q'); // get the query
+
+  document.querySelectorAll('h3').forEach((el, index) => {
+      if (index < NUM_REDDIT_THREADS) {
+          const parent = el.closest('a');
+          if (parent) {
+              results.push({
+                  title: el.innerText,
+                  url: parent.href
+              });
+          }
+      }
+  });
+  chrome.runtime.sendMessage({ type: "google_results", data: results, searchQuery: searchQuery });
 }

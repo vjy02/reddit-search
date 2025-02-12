@@ -1,20 +1,13 @@
-chrome.omnibox.onInputEntered.addListener((text) => {
-  const searchUrl = `https://www.google.com/search?q=${
-    encodeURIComponent(text) + " reddit"
-  }`;
-  chrome.tabs.update({ url: searchUrl });
-});
-
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === "google_results") {
     const redditPosts = message.data.filter((post) =>
       post.url.includes("reddit.com/r/")
     );
-    fetchRedditComments(redditPosts);
+    fetchRedditComments(redditPosts, message.searchQuery);
   }
 });
 
-async function fetchRedditComments(posts) {
+async function fetchRedditComments(posts, searchQuery) {
   const redditResults = [];
   console.log(posts)
   const fetchPromises = posts.map(async (post) => {
@@ -34,7 +27,7 @@ async function fetchRedditComments(posts) {
 
   await Promise.all(fetchPromises)
 
-  fetchAISummary(redditResults, "best watch 2025 reddit")
+  fetchAISummary(redditResults, searchQuery)
 }
 
 async function fetchAISummary(redditResults, searchQuery){

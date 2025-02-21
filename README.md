@@ -22,7 +22,7 @@
 
 ## About
 
-Reddit Summariser is a chrome extension that will generate a summary based off of your reddit sources for your google searches. A pet project made to explore a solution similar to Gemini AI summarises on google queries.
+Reddit Summariser is a chrome extension that will generate a summary based off of your reddit sources for your google searches. A pet project made to explore a solution similar to Gemini AI summaries on google queries.
 
 
 ### Built With

@@ -1,9 +1,3 @@
-# Reddit Summariser 
-Reddit Summariser is a chrome extension that will generate a summary based off of your reddit sources for your google searches, saving you both time and effort in getting more authentic advice from all the AI slop (ironically using AI to escape AI).
-
-
-
-<br />
 <div align="center">
   <a href="">
     <img src="chrome-extension/extension/redditLogo.svg" alt="Logo" width="80" height="80">

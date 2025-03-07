@@ -9,7 +9,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 async function fetchRedditComments(posts, searchQuery) {
   const redditResults = [];
-  console.log(posts)
   const fetchPromises = posts.map(async (post) => {
     try {
       const redditUrl = post.url + ".json";
@@ -26,7 +25,7 @@ async function fetchRedditComments(posts, searchQuery) {
   });
 
   await Promise.all(fetchPromises)
-
+  console.log(redditResults)
   fetchAISummary(redditResults, searchQuery)
 }
 
@@ -38,6 +37,8 @@ async function fetchAISummary(redditResults, searchQuery){
     It is okay not to use all of the sources, just use the most relevant ones.
     Always format your response like the following:
 
+    <div class="reddit-summary-flex"><i><img id="reddit-logo-summary" src="" width="30" height="30">
+    </i><h3 id="reddit-btn-text" class="reddit-btn-text">Reddit Summary</h3></button></div>
     <p>SUMMARY CONTENT</p>
     <h4 style="margin-bottom: 5px;">Further Reading:</h4>
     <ul style="list-style-type: none; padding-left: 0;">
@@ -60,11 +61,11 @@ async function fetchAISummary(redditResults, searchQuery){
     throw new Error('Failed to summarize');
   }
   const data = await response.json();
-
+  console.log(data)
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     if (tabs[0]) {
       chrome.tabs.sendMessage(tabs[0].id, {
-        type: "reddit_comments",
+        type: "reddit_summary",
         data: data.message,
       }, function (response) {
         console.log("Response from content script:", response);

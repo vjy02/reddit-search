@@ -4,6 +4,4 @@ const chromeLaunch = require("chrome-launch");
 
 const TEST_URL = "about:blank";
 
-chromeLaunch(TEST_URL, [
-  "--load-extension=" + __dirname + "/extension/",
-]);
+chromeLaunch(TEST_URL, ["--load-extension=" + __dirname + "/extension/"]);

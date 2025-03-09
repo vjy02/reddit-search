@@ -62,8 +62,8 @@ function createSummaryButton() {
     redditBtn.appendChild(redditIcon);
     redditBtn.appendChild(redditBtnText);
     redditBtn.addEventListener("click", () => {
-      createLoadingAnimation(redditBtnText)
-      redditBtn.classList.add("loading")
+      createLoadingAnimation(redditBtnText);
+      redditBtn.classList.add("loading");
       extractGoogleResults();
     });
 
@@ -94,9 +94,9 @@ function extractGoogleResults() {
 }
 
 function createLoadingAnimation(loadingTextElement) {
-  let dotCount = 1; 
-  const maxDots = 3; 
-  const interval = 500; 
+  let dotCount = 1;
+  const maxDots = 3;
+  const interval = 500;
   function updateLoadingText() {
     loadingTextElement.textContent = "Loading" + ".".repeat(dotCount);
     dotCount = dotCount < maxDots ? dotCount + 1 : 1;

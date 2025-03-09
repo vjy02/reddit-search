@@ -7,40 +7,25 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_popup": "popup.html", 
-    "default_icon": {
-    }
+    "default_popup": "popup.html",
+    "default_icon": {}
   },
   "host_permissions": ["https://www.google.com/*", "https://www.reddit.com/*"],
-  "permissions": [
-    "storage",
-    "tabs",
-    "omnibox",
-    "scripting",
-    "activeTab"
-  ],
+  "permissions": ["storage", "tabs", "omnibox", "scripting", "activeTab"],
   "omnibox": {
     "keyword": "-r"
   },
   "content_scripts": [
     {
-      "matches": [
-        "http://*/*",
-        "https://*/*",
-        "<all_urls>"
-      ],
-      "js": [
-        "contentScript.js"
-      ],
-      "css": [
-        "style.css"
-      ]
+      "matches": ["http://*/*", "https://*/*", "<all_urls>"],
+      "js": ["contentScript.js"],
+      "css": ["style.css"]
     }
   ],
   "web_accessible_resources": [
-  {
-    "resources": ["redditLogo.svg"],
-    "matches": ["<all_urls>"]
-  }
+    {
+      "resources": ["redditLogo.svg"],
+      "matches": ["<all_urls>"]
+    }
   ]
 }

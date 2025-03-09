@@ -1,7 +1,7 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === "google_results") {
     const redditPosts = message.data.filter((post) =>
-      post.url.includes("reddit.com/r/")
+      post.url.includes("reddit.com/r/"),
     );
     fetchRedditComments(redditPosts, message.searchQuery);
   }
@@ -17,19 +17,19 @@ async function fetchRedditComments(posts, searchQuery) {
       redditResults.push({
         title: post.title,
         source: post.url,
-        comments: getTopComments(redditData)
+        comments: getTopComments(redditData),
       });
     } catch (err) {
       console.log(err);
     }
   });
 
-  await Promise.all(fetchPromises)
-  console.log(redditResults)
-  fetchAISummary(redditResults, searchQuery)
+  await Promise.all(fetchPromises);
+  console.log(redditResults);
+  fetchAISummary(redditResults, searchQuery);
 }
 
-async function fetchAISummary(redditResults, searchQuery){
+async function fetchAISummary(redditResults, searchQuery) {
   const prompt = `
     Summarise the most relevant and actionable advice (50-75 words) from selected information threads based on the query: "${searchQuery}". 
     Focus on practical suggestions, solutions, and insights shared by users. 
@@ -51,25 +51,29 @@ async function fetchAISummary(redditResults, searchQuery){
   `;
 
   const response = await fetch("http://localhost:5000/summarise", {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({ text: prompt }),
-  })
+  });
   if (!response.ok) {
-    throw new Error('Failed to summarize');
+    throw new Error("Failed to summarize");
   }
   const data = await response.json();
-  console.log(data)
+  console.log(data);
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     if (tabs[0]) {
-      chrome.tabs.sendMessage(tabs[0].id, {
-        type: "reddit_summary",
-        data: data.message,
-      }, function (response) {
-        console.log("Response from content script:", response);
-      });
+      chrome.tabs.sendMessage(
+        tabs[0].id,
+        {
+          type: "reddit_summary",
+          data: data.message,
+        },
+        function (response) {
+          console.log("Response from content script:", response);
+        },
+      );
     }
   });
 }
@@ -83,13 +87,13 @@ function getTopComments(response) {
   mainComments.sort((a, b) => b.data.ups - a.data.ups);
   const top5Comments = mainComments.slice(0, 5);
   const top5CommentsInfo = top5Comments.map((comment) => {
-    if (comment.data.body === "[deleted]") cont
+    if (comment.data.body === "[deleted]") cont;
     return {
       author: comment.data.author,
       body: comment.data.body,
       upvotes: comment.data.ups,
     };
-  })
+  });
 
   return top5CommentsInfo;
 }
